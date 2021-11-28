@@ -23,7 +23,10 @@ int main(int argc, char *argv[])
 	char file_id[128];
 	int result;
 	FDFSFileInfo file_info;
-	
+	if (arg == NULL)
+	{
+		return EINVAL;
+	}
 	if (argc < 3)
 	{
 		printf("Usage: %s <config_file> <file_id>\n", argv[0]);
