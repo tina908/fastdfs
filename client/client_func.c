@@ -7,7 +7,7 @@
 **/
 
 //client_func.c
-//test
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/socket.h>
