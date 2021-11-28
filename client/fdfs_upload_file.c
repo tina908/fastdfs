@@ -33,6 +33,10 @@ int main(int argc, char *argv[])
 	ConnectionInfo storageServer;
 	char file_id[128];
 	
+	if (arg == NULL)
+	{
+		return EINVAL;
+	}
 	if (argc < 3)
 	{
 		usage(argv);
