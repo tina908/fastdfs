@@ -63,33 +63,24 @@ int main(int argc, char *argv[])
 	if (argc >= 4)
 	{
 		local_filename = argv[3];
-		if ((result=fdfs_client_init(local_filename)) != 0)
-		{
-			return result;
-		}
-
+		
 	}
-	if (argc >= 6 && argc<4)
+	if (args >=6)
 	{
-		local_filename = argv[3];
-		if ((result=fdfs_client_init(local_filename)) != 0)
-		{
-			return result;
-		}
 		file_offset = strtoll(argv[4], NULL, 10);
 		download_bytes = strtoll(argv[5], NULL, 10);
+		
+	}
+	else if (local_filename != NULL)
+	{
+		local_filename = strrchr(file_id, '/');
+		local_filename++;  //skip /
+		
 	}
 	else
 	{
 		local_filename = strrchr(file_id, '/');
-		if (local_filename != NULL)
-		{
-			local_filename++;  //skip /
-		}
-		else
-		{
-			local_filename = file_id;
-		}
+		local_filename = file_id;
 	}
 
 	result = storage_do_download_file1_ex(pTrackerServer, \
