@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
 
 	file_offset = 0;
 	download_bytes = 0;
+	
 	if (argc >= 4)
 	{
 		local_filename = argv[3];
@@ -82,7 +83,10 @@ int main(int argc, char *argv[])
 		local_filename = strrchr(file_id, '/');
 		local_filename = file_id;
 	}
-
+	if ((result=fdfs_client_init(local_filename)) != 0)
+	{
+		return result;
+	}
 	result = storage_do_download_file1_ex(pTrackerServer, \
                 NULL, FDFS_DOWNLOAD_TO_FILE, file_id, \
                 file_offset, download_bytes, \
