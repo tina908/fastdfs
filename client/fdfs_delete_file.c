@@ -23,6 +23,10 @@ int main(int argc, char *argv[])
 	int result;
 	char file_id[128];
 
+	if (arg == NULL)
+	{
+		return EINVAL;
+	}
 	if (argc < 3)
 	{
 		printf("Usage: %s <config_file> <file_id>\n", argv[0]);
