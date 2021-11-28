@@ -23,7 +23,10 @@ int main(int argc, char *argv[])
 	int result;
 	char appender_file_id[128];
 	char new_file_id[128];
-	
+	if (arg == NULL)
+	{
+		return EINVAL;
+	}
 	if (argc < 3)
 	{
 		fprintf(stderr, "regenerate filename for the appender file.\n"
