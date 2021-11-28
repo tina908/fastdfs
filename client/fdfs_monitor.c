@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
 	int arg_index;
 	char *group_name;
 	
-	if(argc <0)
+	if(argc==NULL)
 	{
 		return NULL;
 	}
