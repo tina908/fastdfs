@@ -23,8 +23,11 @@ int main(int argc, char *argv[])
 	ConnectionInfo *pTrackerServer;
 	int result;
 	char appender_file_id[128];
-	
-	if (argc < 4 || argc < 0)
+	if(argc==NULL)
+	{
+		return NULL;
+	}
+	if (argc < 4)
 	{
 		printf("Usage: %s <config_file> <appender_file_id> " \
 			"<local_filename>\n", argv[0]);
