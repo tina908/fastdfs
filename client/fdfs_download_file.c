@@ -63,11 +63,21 @@ int main(int argc, char *argv[])
 	if (argc >= 4)
 	{
 		local_filename = argv[3];
-		if (argc >= 6)
+		if ((result=fdfs_client_init(local_filename)) != 0)
 		{
-			file_offset = strtoll(argv[4], NULL, 10);
-			download_bytes = strtoll(argv[5], NULL, 10);
+			return result;
 		}
+
+	}
+	if (argc >= 6 && argc<4)
+	{
+		local_filename = argv[3];
+		if ((result=fdfs_client_init(local_filename)) != 0)
+		{
+			return result;
+		}
+		file_offset = strtoll(argv[4], NULL, 10);
+		download_bytes = strtoll(argv[5], NULL, 10);
 	}
 	else
 	{
