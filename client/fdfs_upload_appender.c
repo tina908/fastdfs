@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 	int store_path_index;
 	ConnectionInfo storageServer;
 	char file_id[128];
-	if (arg == NULL)
+	if (argc == NULL)
 	{
 		return EINVAL;
 	}
