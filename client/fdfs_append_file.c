@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 	ConnectionInfo *pTrackerServer;
 	int result;
 	char appender_file_id[128];
-	if (arg == NULL)
+	if (argc == NULL)
 	{
 		return EINVAL;
 	}
