@@ -93,7 +93,12 @@ int main(int argc, char *argv[])
 	pthread_t schedule_tid;
 	char pidFilename[MAX_PATH_SIZE];
 	bool stop;
-
+	
+	if (arg == NULL)
+	{
+		return EINVAL;
+	}
+	
 	if (argc < 2)
 	{
 		usage(argv[0]);
