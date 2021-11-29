@@ -25,7 +25,10 @@ int main(int argc, char *argv[])
 	int store_path_index;
 	ConnectionInfo storageServer;
 	char file_id[128];
-	
+	if (argc == NULL)
+	{
+		return EINVAL;
+	}
 	if (argc < 3)
 	{
 		printf("Usage: %s <config_file> <local_filename>\n", argv[0]);
