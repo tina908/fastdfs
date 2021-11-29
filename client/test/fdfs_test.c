@@ -11,6 +11,7 @@
 #include <string.h>
 #include <string.h>
 #include <errno.h>
+#include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include "fdfs_client.h"
@@ -79,6 +80,11 @@ int main(int argc, char *argv[])
 	char *meta_buff;
 	int store_path_index;
 	FDFSFileInfo file_info;
+	
+	struct tm t;
+	time_t set_time;
+	char enter_time;
+	char choose;
 
 	printf("This is FastDFS client test program v%d.%02d\n" \
 "\nCopyright (C) 2008, Happy Fish / YuQing\n" \
@@ -87,6 +93,7 @@ int main(int argc, char *argv[])
 "Please visit the FastDFS Home Page http://www.fastken.com/ \n" \
 "for more detail.\n\n" \
 , g_fdfs_version.major, g_fdfs_version.minor);
+	
 
 	if (argc < 3)
 	{
@@ -221,6 +228,16 @@ int main(int argc, char *argv[])
 
 		if (upload_type == FDFS_UPLOAD_BY_FILE)
 		{
+			printf("Do you want set time? (y or n)");
+			scanf_s("%s", &choose, sizeof(char);
+	
+			if (choose == 'y') {
+			printf("Please enter the time you want [ yyyy,mm,dd:hh:mm:ss ] : ");
+			scanf_s("%s", &enter_time, sizeof(char));
+			strptime(enter_time, "%Y,%m,%d:%H:%M:%S", &t);
+			set_time = mktime(&t); }
+			
+			
 			result = storage_upload_by_filename(pTrackerServer, \
 				pStorageServer, store_path_index, \
 				local_filename, file_ext_name, \
