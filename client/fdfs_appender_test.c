@@ -23,7 +23,7 @@
 int writeToFileCallback(void *arg, const int64_t file_size, const char *data, \
                 const int current_size)
 {
-	if (arg == NULL)
+	if (argc == NULL)
 	{
 		return EINVAL;
 	}
