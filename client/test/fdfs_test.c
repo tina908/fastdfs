@@ -94,6 +94,15 @@ int main(int argc, char *argv[])
 "for more detail.\n\n" \
 , g_fdfs_version.major, g_fdfs_version.minor);
 	
+	printf("Do you want set time? (y or n)");
+			scanf_s("%s", &choose, sizeof(char);
+	
+			if (choose == 'y') {
+			printf("Please enter the time you want [ yyyy,mm,dd:hh:mm:ss ] : ");
+			scanf_s("%s", &enter_time, sizeof(char));
+			strptime(enter_time, "%Y,%m,%d:%H:%M:%S", &t);
+			set_time = mktime(&t); }
+			
 
 	if (argc < 3)
 	{
@@ -228,16 +237,6 @@ int main(int argc, char *argv[])
 
 		if (upload_type == FDFS_UPLOAD_BY_FILE)
 		{
-			printf("Do you want set time? (y or n)");
-			scanf_s("%s", &choose, sizeof(char);
-	
-			if (choose == 'y') {
-			printf("Please enter the time you want [ yyyy,mm,dd:hh:mm:ss ] : ");
-			scanf_s("%s", &enter_time, sizeof(char));
-			strptime(enter_time, "%Y,%m,%d:%H:%M:%S", &t);
-			set_time = mktime(&t); }
-			
-			
 			result = storage_upload_by_filename(pTrackerServer, \
 				pStorageServer, store_path_index, \
 				local_filename, file_ext_name, \
