@@ -81,10 +81,10 @@ int main(int argc, char *argv[])
 	int store_path_index;
 	FDFSFileInfo file_info;
 	
-	struct tm t;
-	time_t set_time;
-	char enter_time;
-	char choose;
+	struct tm t; 
+	time_t set_time;  //time변수 set_time -> 문자열을 time변수로 전환
+	char enter_time; //유저가 입력한 시간설정값
+	char choose; // 시간설정 유무 (y or n)
 
 	printf("This is FastDFS client test program v%d.%02d\n" \
 "\nCopyright (C) 2008, Happy Fish / YuQing\n" \
@@ -407,6 +407,7 @@ int main(int argc, char *argv[])
 			group_name, remote_filename);
 
 		fdfs_get_file_info(group_name, remote_filename, &file_info);
+		
 
 		printf("source ip address: %s\n", file_info.source_ip_addr);
 		printf("file timestamp=%s\n", formatDatetime(
