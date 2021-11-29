@@ -27,6 +27,10 @@ int main(int argc, char *argv[])
 	int64_t crc32;
 	char buff[512 * 1024];
 
+	if (argc == NULL)
+	{
+		return EINVAL;
+	}
 	if (argc < 2)
 	{
 		printf("Usage: %s <filename>\n", argv[0]);
