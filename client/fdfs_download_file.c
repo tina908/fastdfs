@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	int64_t file_offset;
 	int64_t download_bytes;
 	
-	if (arg == NULL)
+	if (argc == NULL)
 	{
 		return EINVAL;
 	}
