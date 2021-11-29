@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 	char token[32 + 1];
 	char file_id[128];
 	char file_url[256];
-	char szDatetime[20];
+	char szDatetime[20]; /* check */
 	char szPortPart[16];
 	int url_len;
 	time_t ts;
@@ -263,9 +263,12 @@ int main(int argc, char *argv[])
 
 	fdfs_get_file_info(group_name, remote_filename, &file_info);
 	printf("source ip address: %s\n", file_info.source_ip_addr);
+	
+	/* check */
 	printf("file timestamp=%s\n", formatDatetime(
 		file_info.create_timestamp, "%Y-%m-%d %H:%M:%S", \
-		szDatetime, sizeof(szDatetime)));
+		szDatetime, sizeof(szDatetime))); 
+	
 	printf("file size=%"PRId64"\n", file_info.file_size);
 	printf("file crc32=%u\n", file_info.crc32);
 	printf("file url: %s\n", file_url);
@@ -285,9 +288,12 @@ int main(int argc, char *argv[])
 
 	fdfs_get_file_info(group_name, appender_filename, &file_info);
 	printf("source ip address: %s\n", file_info.source_ip_addr);
+	
+	/* check */
 	printf("file timestamp=%s\n", formatDatetime(
 		file_info.create_timestamp, "%Y-%m-%d %H:%M:%S", \
 		szDatetime, sizeof(szDatetime)));
+	
 	printf("file size=%"PRId64"\n", file_info.file_size);
 	printf("file crc32=%u\n", file_info.crc32);
 	printf("file url: %s\n", file_url);
@@ -348,6 +354,7 @@ int main(int argc, char *argv[])
 		fdfs_client_destroy();
 		return result;
 	}
+	
 	printf("append file successfully.\n");
 	fdfs_get_file_info(group_name, remote_filename, &file_info);
 	printf("source ip address: %s\n", file_info.source_ip_addr);
