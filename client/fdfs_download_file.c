@@ -27,9 +27,9 @@ int main(int argc, char *argv[])
 	int64_t file_offset;
 	int64_t download_bytes;
 	
-	if(argc<0)
+	if (argc == NULL)
 	{
-		return NULL;
+		return EINVAL;
 	}
 	if (argc < 3)
 	{
