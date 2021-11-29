@@ -19,7 +19,7 @@ typedef struct {
     short file_type;
     bool get_from_server;
 	time_t create_timestamp;
-	//time_t set_time; //user_time set
+	time_t set_time; //user_time set
 	int crc32;
 	int source_id;   //source storage id
 	int64_t file_size;
