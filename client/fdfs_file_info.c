@@ -19,10 +19,15 @@
 int main(int argc, char *argv[])
 {
 	char *conf_filename;
-    const char *file_type_str;
+   	 const char *file_type_str;
 	char file_id[128];
 	int result;
 	FDFSFileInfo file_info;
+	
+	if (argc == NULL)
+	{
+		return EINVAL;
+	}
 	
 	if (argc < 3)
 	{
