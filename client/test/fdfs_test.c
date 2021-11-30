@@ -243,7 +243,8 @@ int main(int argc, char *argv[])
 				pStorageServer, store_path_index, \
 				local_filename, file_ext_name, \
 				meta_list, meta_count, \
-				group_name, remote_filename);
+				group_name, remote_filename,set_time);
+			//user가 설정한 시간 대입
 
 			printf("storage_upload_by_filename\n");
 		}
@@ -257,7 +258,7 @@ int main(int argc, char *argv[])
 				pStorageServer, store_path_index, \
 				file_content, file_size, file_ext_name, \
 				meta_list, meta_count, \
-				group_name, remote_filename);
+				group_name, remote_filename,set_time); //user가 설정한 시간 대입)
 			free(file_content);
 			}
 
@@ -276,7 +277,7 @@ int main(int argc, char *argv[])
 				uploadFileCallback, local_filename, \
 				file_size, file_ext_name, \
 				meta_list, meta_count, \
-				group_name, remote_filename);
+				group_name, remote_filename,set_time); //user가 설정한 시간 대입
 			}
 
 			printf("storage_upload_by_callback\n");
