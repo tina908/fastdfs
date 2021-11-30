@@ -90,7 +90,14 @@ int main(int argc, char *argv[])
 	int store_path_index;
 	FDFSFileInfo file_info;
 	
-	struct tm t; 
+	struct tm set; 
+	//local 시간 받아오기
+	
+	struct tm *now; //localtime
+	time_t local;
+	time(&local);
+	now=locattime(&local); //local->tm_year+1900 , local->tm_mon+1 정수형
+	
 	char enter[30]={0};  //time enter 문자열로 입력받기
 	char *enter_time; //유저가 입력한 시간설정값
 	char choose; // 시간설정 유무 (y or n)
@@ -109,12 +116,12 @@ int main(int argc, char *argv[])
 			timeline = strtok(NULL, "/-:");
 			i++;
 		}
-		t.tm_year = enter_time[0];
-		t.tm_mon = enter_time[1];
-		t.tm_mday = enter_time[2];
-		t.tm_hour = enter_time[3];
-		t.tm_min = enter_time[4];
-		t.tm_sec = enter_time[5];
+		set.tm_year = enter_time[0]; //문자형
+		set.tm_mon = enter_time[1];
+		set.tm_mday = enter_time[2];
+		set.tm_hour = enter_time[3];
+		set.tm_min = enter_time[4];
+		set.tm_sec = enter_time[5];
 	}
 	
 	printf("This is FastDFS client test program v%d.%02d\n" \
