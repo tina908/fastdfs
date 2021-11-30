@@ -90,8 +90,7 @@ int main(int argc, char *argv[])
 	int store_path_index;
 	FDFSFileInfo file_info;
 	
-	struct tm set; 
-	//local 시간 받아오기
+	struct tm set; //user가 setting할 시간정보
 	
 	struct tm *now; //localtime
 	time_t local;
