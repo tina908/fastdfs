@@ -91,10 +91,32 @@ int main(int argc, char *argv[])
 	FDFSFileInfo file_info;
 	
 	struct tm t; 
-	time_t set_time;  //time변수 set_time -> 문자열을 time변수로 전환
-	char enter_time; //유저가 입력한 시간설정값
+	char enter[30]={0};  //time enter 문자열로 입력받기
+	char *enter_time; //유저가 입력한 시간설정값
 	char choose; // 시간설정 유무 (y or n)
+	int index=0;
+	
+	printf("Do you want set time? (y or n) : ");
+	scanf("%c",&choose);
 
+	if (choose=='y') {
+		printf("Please enter the Date [Ex: 2021-12-25/12:27:00] : ");
+		scanf_s("%s",&enter,sizeof(enter));
+	
+		char *timeline = strtok(enter,"/-:");
+		while (timeline != NULL) {
+			enter_time[i] = timeline;
+			timeline = strtok(NULL, "/-:");
+			i++;
+		}
+		t.tm_year = enter_time[0];
+		t.tm_mon = enter_time[1];
+		t.tm_mday = enter_time[2];
+		t.tm_hour = enter_time[3];
+		t.tm_min = enter_time[4];
+		t.tm_sec = enter_time[5];
+	}
+	
 	printf("This is FastDFS client test program v%d.%02d\n" \
 "\nCopyright (C) 2008, Happy Fish / YuQing\n" \
 "\nFastDFS may be copied only under the terms of the GNU General\n" \
@@ -102,17 +124,6 @@ int main(int argc, char *argv[])
 "Please visit the FastDFS Home Page http://www.fastken.com/ \n" \
 "for more detail.\n\n" \
 , g_fdfs_version.major, g_fdfs_version.minor);
-	
-	printf("Do you want set time? (y or n)");
-			scanf_s("%s", &choose, sizeof(char);
-	
-			if (choose == 'y') {
-			printf("Please enter the time you want [ yyyy,mm,dd:hh:mm:ss ] : ");
-			scanf_s("%s", &enter_time, sizeof(char));
-			strptime(enter_time, "%Y,%m,%d:%H:%M:%S", &t);
-			set_time = mktime(&t); }
-	
-	file_info.set_time=set_time; //FDFSFileInfo의 set_time에 user가 설정한 변수 대입
 			
 
 	if (argc < 3)
