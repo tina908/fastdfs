@@ -11,7 +11,7 @@
 #include <string.h>
 #include <string.h>
 #include <errno.h>
-#include <signal.h> //
+#include <signal.h> //시그널
 #include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -21,6 +21,14 @@
 #include "fastcommon/sockopt.h"
 #include "fastcommon/logger.h"
 #include "fdfs_http_shared.h"
+
+void alarmHandler_upload(){
+	pirntf("설정한 시간이 되었습니다. 업로드를 시작합니다. ");
+}
+
+void alarmHandler_delete(){
+	pirntf("설정한 시간이 되었습니다. 파일을 삭제합니다. ");
+}
 
 int writeToFileCallback(void *arg, const int64_t file_size, const char *data, \
                 const int current_size)
