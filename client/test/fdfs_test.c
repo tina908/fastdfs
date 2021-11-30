@@ -102,6 +102,8 @@ int main(int argc, char *argv[])
 			scanf_s("%s", &enter_time, sizeof(char));
 			strptime(enter_time, "%Y,%m,%d:%H:%M:%S", &t);
 			set_time = mktime(&t); }
+	
+	file_info.set_time=set_time; //FDFSFileInfo의 set_time에 user가 설정한 변수 대입
 			
 
 	if (argc < 3)
