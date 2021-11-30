@@ -61,6 +61,27 @@ int main(int argc, char *argv[])
 			result, STRERROR(result));
 	}
 
+
+//마지막 if 문 뒤에 서버주소와 동일한지 묻는 코드 추가.
+int num1,num2,num3,num4,count;
+int i=0;
+char s_in[20];
+while(i<5){
+  printf_s(“ 삭제를 원하시면 서버주소를 정확히 입력해주세요.”);
+  scanf_s(“%s”,s_in);
+  int m = strcmp(*pTrackerServer, s_in);
+   if(m==0) {
+      break;
+        }
+    else if (i==4){
+      printf(“죄송합니다. 서버주소를 5번 실패해서 삭제할 수 없습니다.”);
+     return 1;
+      }
+    else i++; 
+    }
+
+
+
 	tracker_close_connection_ex(pTrackerServer, true);
 	fdfs_client_destroy();
 
