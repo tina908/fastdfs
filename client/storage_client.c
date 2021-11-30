@@ -14,6 +14,7 @@
 #include <arpa/inet.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <signal.h> //시그널
 #include <string.h>
 #include <errno.h>
 #include <time.h>
@@ -1495,7 +1496,8 @@ int storage_upload_slave_by_filename(ConnectionInfo *pTrackerServer, \
 		const char *master_filename, const char *prefix_name, \
 		const char *file_ext_name, \
 		const FDFSMetaData *meta_list, const int meta_count, \
-		char *group_name, char *remote_filename)
+		char *group_name, char *remote_filename,time_t set_time)
+	//time_t 변수 추가 -> 유저가 설정한 시간 
 {
 	struct stat stat_buf;
 
@@ -1522,6 +1524,11 @@ int storage_upload_slave_by_filename(ConnectionInfo *pTrackerServer, \
 	if (file_ext_name == NULL)
 	{
 		file_ext_name = fdfs_get_file_ext_name(local_filename);
+	}
+	
+	if (set_time != NULL)
+	{
+			
 	}
 
 	return storage_do_upload_file(pTrackerServer, pStorageServer, \
