@@ -13,6 +13,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <stdio.h>
+#include <uistd.h>
 #include <stdlib.h>
 #include <signal.h> //시그널
 #include <string.h>
@@ -1526,17 +1527,12 @@ int storage_upload_slave_by_filename(ConnectionInfo *pTrackerServer, \
 		file_ext_name = fdfs_get_file_ext_name(local_filename);
 	}
 	
-	if (set_time != NULL)
-	{
-			
-	}
-
 	return storage_do_upload_file(pTrackerServer, pStorageServer, \
 			0, STORAGE_PROTO_CMD_UPLOAD_SLAVE_FILE, \
 			FDFS_UPLOAD_BY_FILE, local_filename, \
 			NULL, stat_buf.st_size, master_filename, prefix_name, \
 			file_ext_name, meta_list, meta_count, \
-			group_name, remote_filename);
+			group_name, remote_filename,set_time);
 }
 
 int storage_upload_slave_by_callback(ConnectionInfo *pTrackerServer, \
