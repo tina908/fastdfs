@@ -339,7 +339,8 @@ int storage_upload_slave_by_filename(ConnectionInfo *pTrackerServer, \
 		const char *master_filename, const char *prefix_name, \
 		const char *file_ext_name, \
 		const FDFSMetaData *meta_list, const int meta_count, \
-		char *group_name, char *remote_filename);
+		char *group_name, char *remote_filename,time_t set_time); 
+	//upload 할때 유저가 설정한 시간을 대입할 time_t변수 추가
 
 /**
 * upload slave file to storage server (by file buff)
