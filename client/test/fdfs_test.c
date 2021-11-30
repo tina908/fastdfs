@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 	struct tm *now; //localtime
 	time_t local;
 	time(&local);
-	now=locattime(&local); //local->tm_year+1900 , local->tm_mon+1 정수형
+	now=localtime(&local); //local->tm_year+1900 , local->tm_mon+1 정수형
 	
 	char enter[30]={0};  //time enter 문자열로 입력받기
 	char *enter_time; //유저가 입력한 시간설정값
