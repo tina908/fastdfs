@@ -105,8 +105,7 @@ int main(int argc, char *argv[])
 	scanf("%c",&choose);
 
 	if (choose=='y') {
-		printf("Note: 12 hours is the maximum \n"); // 예약 가능한 시간은 최대 12시간 뒤까지.
-		printf("Note: Inputable time (01:00-23:00) \n"); //예약 가능한 시간대
+		printf("Note: 24 hours is the maximum \n"); // 예약 가능한 시간은 최대 24시간 (하루를 넘어가지 않도록)
 		printf("현재시각: %dM-%dD/%dH:%dM \n", now->tm_mon+1, now->tm_mday, now->tm_hour, now->tm_min); //현재 local타임도 출력
 		printf("Please enter the Date [Ex: 12-25/12:27] : ");
 		scanf_s("%s",&enter,sizeof(enter));
