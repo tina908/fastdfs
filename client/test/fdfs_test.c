@@ -140,8 +140,8 @@ int main(int argc, char *argv[])
 
 	sum = sum_hour + sum_min;
 
-	printf("%d\n초뒤", sum);
-	printf("%s월%s일%s시%s분\n", t.tm_mon, t.tm_mday,t.tm_hour,t.tm_min);
+	//printf("%d\n초뒤", sum);
+	//printf("%s월%s일%s시%s분\n", t.tm_mon, t.tm_mday,t.tm_hour,t.tm_min);
 	
 	
 	
