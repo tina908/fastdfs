@@ -104,13 +104,10 @@ int main(int argc, char *argv[])
 	printf("Do you want set time? (y or n) : ");
 	scanf("%c",&choose);
 
-	//한계: 현재 timeline과 입력한 timeline을 이용해 시간차를 구하고 그걸 초로 전환해 linux명령어 signal과 alarm을 사용.
-	//초로 전환하는 과정에서 12.31->1.01로 넘어갈때나 시간대가 24:00->1:00일때 등 예외처리를 해줘야함.
-	//구현할 시간이 부족하여 입력가능한경우를 한정지었습니다.
-	
 	if (choose=='y') {
 		printf("Note: 12 hours is the maximum \n"); // 예약 가능한 시간은 최대 12시간 뒤까지.
 		printf("Note: Inputable time (01:00-23:00) \n"); //예약 가능한 시간대
+		printf("현재시각: %dM-%dD/%dH:%dM \n", now->tm_mon+1, now->tm_mday, now->tm_hour, now->tm_min); //현재 local타임도 출력
 		printf("Please enter the Date [Ex: 12-25/12:27] : ");
 		scanf_s("%s",&enter,sizeof(enter));
 	
@@ -120,20 +117,24 @@ int main(int argc, char *argv[])
 			timeline = strtok(NULL, "/-:");
 			i++;
 		}
-		set.tm_mon = enter_time[0];
+		set.tm_mon = enter_time[0]; 
 		set.tm_mday = enter_time[1];
 		set.tm_hour = enter_time[2];
 		set.tm_min = enter_time[3];
 	}
 	
-	int sum = 0;
+	int sum = 0; //시간차를 초로 변환한 값
 
-	int sum_hour = (atoi(t.tm_hour) - now->tm_hour) * 3600;
-	int sum_min = (atoi(t.tm_min) - now->tm_min) * 60;
+	int sum_hour = (atoi(set.tm_hour) - now->tm_hour) * 3600; //atoi 는 문자열을 정수형으로 전환
+	int sum_min = (atoi(set.tm_min) - now->tm_min) * 60;
 
-	if (sum_min < 0) {
-		sum_hour -= 1;
-		sum_min = 60 - now->tm_min + t.tm_min;
+	// ex) 1:50에서 2:12으로 38분이 아닌 22분
+	if (sum_min < 0) { 
+		sum_min = 60 - now->tm_min + set.tm_min;
+	}
+	// ex) 10:00에서 01:00로 9시간이 아닌 15시간
+	if (sum_hour < 0) { 
+		sum_hour = 24 - now->tm_hour + set.tm_hour;
 	}
 
 
