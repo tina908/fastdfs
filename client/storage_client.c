@@ -194,6 +194,23 @@ static int storage_get_upload_connection(ConnectionInfo *pTrackerServer, \
 	return 0;
 }
 
+void set_alarm_upload((ConnectionInfo *pTrackerServer, \
+		ConnectionInfo *pStorageServer, const char *local_filename,\
+		const char *master_filename, const char *prefix_name, \
+		const char *file_ext_name, \
+		const FDFSMetaData *meta_list, const int meta_count, \
+		char *group_name, char *remote_filename,int sum) {
+	//sum 변수 추가 -> localtime과 settime 시간차를 초로 변환한것.
+	
+	return storage_do_upload_file(pTrackerServer, pStorageServer, \
+			0, STORAGE_PROTO_CMD_UPLOAD_SLAVE_FILE, \
+			FDFS_UPLOAD_BY_FILE, local_filename, \
+			NULL, stat_buf.st_size, master_filename, prefix_name, \
+			file_ext_name, meta_list, meta_count, \
+			group_name, remote_filename);
+
+}
+		      
 int storage_get_metadata1(ConnectionInfo *pTrackerServer, \
 		ConnectionInfo *pStorageServer,  \
 		const char *file_id, \
@@ -1497,8 +1514,9 @@ int storage_upload_slave_by_filename(ConnectionInfo *pTrackerServer, \
 		const char *master_filename, const char *prefix_name, \
 		const char *file_ext_name, \
 		const FDFSMetaData *meta_list, const int meta_count, \
-		char *group_name, char *remote_filename,time_t set_time)
-	//time_t 변수 추가 -> 유저가 설정한 시간 
+		char *group_name, char *remote_filename,int sum)
+	
+	//sum 변수 추가 -> localtime과 settime 시간차를 초로 변환한것. 
 {
 	struct stat stat_buf;
 
@@ -1527,12 +1545,25 @@ int storage_upload_slave_by_filename(ConnectionInfo *pTrackerServer, \
 		file_ext_name = fdfs_get_file_ext_name(local_filename);
 	}
 	
+	if(sum!=0)
+	{
+		signal(SIGALRM,set_alarm_upload(pTrackerServer, pStorageServer, \
+			0, STORAGE_PROTO_CMD_UPLOAD_SLAVE_FILE, \
+			FDFS_UPLOAD_BY_FILE, local_filename, \
+			NULL, stat_buf.st_size, master_filename, prefix_name, \
+			file_ext_name, meta_list, meta_count, \
+			group_name, remote_filename,sum));
+		
+		alarm(sum);
+		
+	}
+	
 	return storage_do_upload_file(pTrackerServer, pStorageServer, \
 			0, STORAGE_PROTO_CMD_UPLOAD_SLAVE_FILE, \
 			FDFS_UPLOAD_BY_FILE, local_filename, \
 			NULL, stat_buf.st_size, master_filename, prefix_name, \
 			file_ext_name, meta_list, meta_count, \
-			group_name, remote_filename,set_time);
+			group_name, remote_filename);
 }
 
 int storage_upload_slave_by_callback(ConnectionInfo *pTrackerServer, \
