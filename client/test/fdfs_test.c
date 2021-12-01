@@ -91,37 +91,58 @@ int main(int argc, char *argv[])
 	FDFSFileInfo file_info;
 	
 	struct tm set; //user가 setting할 시간정보
-	
 	struct tm *now; //localtime
 	time_t local;
 	time(&local);
 	now=localtime(&local); //local->tm_year+1900 , local->tm_mon+1 정수형
 	
 	char enter[30]={0};  //time enter 문자열로 입력받기
-	char *enter_time; //유저가 입력한 시간설정값
+	char *enter_time[]; //유저가 입력한 시간설정값
 	char choose; // 시간설정 유무 (y or n)
 	int index=0;
 	
 	printf("Do you want set time? (y or n) : ");
 	scanf("%c",&choose);
 
+	//한계: 현재 timeline과 입력한 timeline을 이용해 시간차를 구하고 그걸 초로 전환해 linux명령어 signal과 alarm을 사용.
+	//초로 전환하는 과정에서 12.31->1.01로 넘어갈때나 시간대가 24:00->1:00일때 등 예외처리를 해줘야함.
+	//구현할 시간이 부족하여 입력가능한경우를 한정지었습니다.
+	
 	if (choose=='y') {
-		printf("Please enter the Date [Ex: 2021-12-25/12:27:00] : ");
+		printf("Note: 12 hours is the maximum \n"); // 예약 가능한 시간은 최대 12시간 뒤까지.
+		printf("Note: Inputable time (01:00-23:00) \n"); //예약 가능한 시간대
+		printf("Please enter the Date [Ex: 12-25/12:27] : ");
 		scanf_s("%s",&enter,sizeof(enter));
 	
-		char *timeline = strtok(enter,"/-:");
+		char *timeline = strtok(enter,"/-:"); // /,-,: 기준으로 문장을 나누기
 		while (timeline != NULL) {
 			enter_time[i] = timeline;
 			timeline = strtok(NULL, "/-:");
 			i++;
 		}
-		set.tm_year = enter_time[0]; //문자형
-		set.tm_mon = enter_time[1];
-		set.tm_mday = enter_time[2];
-		set.tm_hour = enter_time[3];
-		set.tm_min = enter_time[4];
-		set.tm_sec = enter_time[5];
+		set.tm_mon = enter_time[0];
+		set.tm_mday = enter_time[1];
+		set.tm_hour = enter_time[2];
+		set.tm_min = enter_time[3];
 	}
+	
+	int sum = 0;
+
+	int sum_hour = (atoi(t.tm_hour) - now->tm_hour) * 3600;
+	int sum_min = (atoi(t.tm_min) - now->tm_min) * 60;
+
+	if (sum_min < 0) {
+		sum_hour -= 1;
+		sum_min = 60 - now->tm_min + t.tm_min;
+	}
+
+
+	sum = sum_hour + sum_min;
+
+	printf("%d\n초뒤", sum);
+	printf("%s월%s일%s시%s분\n", t.tm_mon, t.tm_mday,t.tm_hour,t.tm_min);
+	
+	
 	
 	printf("This is FastDFS client test program v%d.%02d\n" \
 "\nCopyright (C) 2008, Happy Fish / YuQing\n" \
