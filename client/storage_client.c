@@ -194,12 +194,13 @@ static int storage_get_upload_connection(ConnectionInfo *pTrackerServer, \
 	return 0;
 }
 
-void set_alarm_upload((ConnectionInfo *pTrackerServer, \
+int set_alarm_upload((ConnectionInfo *pTrackerServer, \
 		ConnectionInfo *pStorageServer, const char *local_filename,\
 		const char *master_filename, const char *prefix_name, \
 		const char *file_ext_name, \
 		const FDFSMetaData *meta_list, const int meta_count, \
-		char *group_name, char *remote_filename,int sum) {
+		char *group_name, char *remote_filename,int sum) 
+{
 	//sum 변수 추가 -> localtime과 settime 시간차를 초로 변환한것.
 	
 	return storage_do_upload_file(pTrackerServer, pStorageServer, \
